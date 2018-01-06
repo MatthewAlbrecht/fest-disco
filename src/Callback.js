@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './App.css';
+import queryString from 'query-string';
 
 class App extends Component {
    constructor(props){
      super(props);
      this.state = {
-        loginURI: 'https://accounts.spotify.com/authorize?client_id=cdbad3fca6e246fc844cf598440f2b93&response_type=code&redirect_uri=http://localhost:3000/cb&scope=user-read-private%20user-read-email'
+
      }
 
-     this.handleLoginClick = this.handleLoginClick.bind(this)
    }
 
-   handleLoginClick() {
-      window.location = this.state.loginURI
+   componentWillMount() {
+      this.props.location.parsedSearch = queryString.parse(this.props.location.search)
+      console.log("this.props ===> ", this.props)
+
+      requestAccessAndRefresh(this.props.location.parsedSearch)
+      // console.log("parsed ===> ", parsed)
    }
+   requestAccessAndRefresh(search) {
+      let code = search.code || null
+   }
+
   render() {
     return (
       <div className="App">
@@ -23,7 +30,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to FestDisco</h1>
         </header>
         <p className="App-intro">
-          To get started, login <a onClick={this.handleLoginClick} className="login">here</a>.
+           This is the Callback
         </p>
       </div>
     );
