@@ -31,8 +31,15 @@ class Lineup extends Component {
       if (this.state.festival.artists) {
          let artistModules = []
          this.state.festival.artists.forEach((artist, i) => {
+            console.log("artist ===> ", artist)
             let module = (
-               <div key={i}>{artist.name}</div>
+               <div key={i}>
+                  <h3>{artist.name}</h3>
+                  {(artist._id && artist._id.images[0]) ?
+                     <img src={artist._id.images[0].url} />
+                     : null}
+
+               </div>
             )
             artistModules.push(module)
          })
