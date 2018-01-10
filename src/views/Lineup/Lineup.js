@@ -13,10 +13,14 @@ class Lineup extends Component {
 
      this.renderLineup = this.renderLineup.bind(this)
      this.handleArtistClick = this.handleArtistClick.bind(this)
-   }
+     this.setLocalStorage = this.setLocalStorage.bind(this)
+  }
+
    componentDidMount() {
          let pathname = this.props.location.pathname.split("/")[2].split("_")
          let [name, year] = pathname
+         localStorage.getItem('festival');
+
          console.log("name, year ===> ", name, year)
          fetch(`http://localhost:5000/api/v1/festivals/${name}/${year}`)
             .then(res => res.json())
@@ -41,6 +45,29 @@ class Lineup extends Component {
          }
       }
       this.setState({ festival })
+      // this.setLocalStorage()
+   }
+
+   setLocalStorage() {
+      let pathname = this.props.location.pathname.split("/")[2].split("_")
+      let [name, year] = pathname
+      let festivals = localStorage.getItem("festivals")
+      if (festivals) {
+         festivals = JSON.parse(festivals)
+         if (festivals.length > 0) {
+            for (let festival of festivals) {
+               if (festival.name === name && festival.year === +year) {
+                  festival = this.state.festival
+                  // TODO: if no hits then PUSH new festival on local storage
+                  break;
+               }
+            }
+            localStorage.setItem("festivals", JSON.stringify([this.state.festival]))
+         }
+      } else {
+         localStorage.setItem("festivals", JSON.stringify([this.state.festival]))
+      }
+
    }
 
    renderLineup() {
