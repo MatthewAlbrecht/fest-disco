@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
 import './lineup.css'
+import genericCrowdImage from '../../img/crowd.jpeg'
 
 class Lineup extends Component {
    constructor(props){
@@ -11,6 +12,7 @@ class Lineup extends Component {
      }
 
      this.renderLineup = this.renderLineup.bind(this)
+     this.handleArtistClick = this.handleArtistClick.bind(this)
    }
    componentDidMount() {
          let pathname = this.props.location.pathname.split("/")[2].split("_")
@@ -27,18 +29,50 @@ class Lineup extends Component {
             })
    }
 
+   handleArtistClick(artistName) {
+      console.log("artistName ===> ", artistName)
+      console.log("this.state.festival.artists ===> ", this.state.festival.artists)
+      let festival = Object.assign({}, this.state.festival)
+      for (let artist of festival.artists) {
+         if (artist.name === artistName) {
+            artist.active = !artist.active
+            console.log("artist.name, artistName ===> ", artist.active, artistName)
+            break;
+         }
+      }
+      this.setState({ festival })
+   }
+
    renderLineup() {
       if (this.state.festival.artists) {
          let artistModules = []
          this.state.festival.artists.forEach((artist, i) => {
-            console.log("artist ===> ", artist)
+            let imgUrl
+            let style
+            if (artist._id && artist._id.images && artist._id.images[0]) {
+               imgUrl = artist._id.images[0].url
+               style = {
+                  backgroundImage: `url('${imgUrl}')`
+               }
+            } else {
+               style = {
+                  backgroundImage: `url('${genericCrowdImage}')`
+               }
+            }
+            // console.log("artist ===> ", artist)
             let module = (
-               <div key={i}>
-                  <h3>{artist.name}</h3>
-                  {(artist._id && artist._id.images[0]) ?
-                     <img src={artist._id.images[0].url} />
-                     : null}
-
+               <div
+                  key={i}
+                  style={style}
+                  className={"artist" + (artist.active ? " active" : "")}
+                  onClick={() => {this.handleArtistClick(artist.name)}}
+                  >
+                  <h3 className="artist_name">{artist.name}</h3>
+                  <div className="overlay"></div>
+                  <div className="overlay_color"></div>
+                  <div className="add_artist_container">
+                     <span className="plus">+</span>
+                  </div>
                </div>
             )
             artistModules.push(module)
@@ -57,7 +91,7 @@ class Lineup extends Component {
       }
       return(
          <div>
-            <h1>MADE IT TO LINEUP PAGE</h1>
+            <h1 className="select_artist_header">Select Artists</h1>
             {this.renderLineup()}
          </div>
       );

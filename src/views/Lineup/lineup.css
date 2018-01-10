@@ -1,0 +1,88 @@
+.artist {
+   background-position: center 25%;
+   background-repeat: no-repeat;
+   background-size: cover;
+   height: 150px;
+   padding: 16px;
+   position: relative;
+   width: 100%;
+}
+
+.artist + .artist {
+   margin: 2px 0 0 0;
+}
+.artist .overlay {
+   /* background: linear-gradient(45deg, rgba(0, 12, 255, .25), rgba(145, 0, 255, .25)); */
+   background: linear-gradient(45deg, rgba(0, 0, 0, .15), rgba(0, 0, 0, .15));
+   bottom:0;
+   left:0;
+   position:absolute;
+   right:0;
+   top:0;
+   z-index:1;
+
+   opacity: 1;
+   transition: opacity .3s ease-in-out;
+}
+.artist .overlay_color {
+   /* background: linear-gradient(45deg, rgba(0, 12, 255, .25), rgba(145, 0, 255, .25)); */
+   /* background: linear-gradient(45deg, rgba(0, 0, 0, .15), rgba(0, 0, 0, .15)); */
+   background: linear-gradient(45deg, rgba(0, 12, 255, .75), rgba(145, 0, 255, .75));
+   bottom:0;
+   left:0;
+   position:absolute;
+   right:0;
+   top:0;
+   z-index:1;
+
+   opacity: 0;
+   transition: opacity .3s ease-in-out;
+}
+.artist.active .overlay {
+   opacity: 0
+}
+.artist.active .overlay_color {
+   opacity: 1
+}
+.select_artist_header {
+   font-family: sans-serif;
+   font-size: 24px;
+   font-weight: bold;
+}
+.add_artist_container {
+   align-items: center;
+   border: 2px white solid;
+   border-radius: 50%;
+   bottom: 16px;
+   display: flex;
+   height: 32px;
+   justify-content: center;
+   position: absolute;
+   right: 16px;
+   width: 32px;
+   z-index: 2;
+
+   transition: background .3s ease-in-out;
+
+}
+.artist.active .add_artist_container {
+   background: white;
+}
+.plus {
+   color: white;
+   font-size: 16px;
+   line-height: 1;
+
+   transition: color .3s ease-in-out;
+}
+.artist.active .add_artist_container .plus{
+   color: black;
+}
+.artist_name {
+   color: white;
+   font-family: sans-serif;
+   font-weight: bold;
+   font-size: 32px;
+   position: relative;
+   z-index: 2;
+}
