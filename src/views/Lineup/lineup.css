@@ -2,7 +2,7 @@
    background-position: center 25%;
    background-repeat: no-repeat;
    background-size: cover;
-   height: 150px;
+   height: 152px;
    padding: 16px;
    position: relative;
    width: 100%;
@@ -13,7 +13,7 @@
 }
 .artist .overlay {
    /* background: linear-gradient(45deg, rgba(0, 12, 255, .25), rgba(145, 0, 255, .25)); */
-   background: linear-gradient(45deg, rgba(0, 0, 0, .15), rgba(0, 0, 0, .15));
+   background: linear-gradient(45deg, rgba(0, 0, 0, .44), rgba(0, 0, 0, .44));
    bottom:0;
    left:0;
    position:absolute;
@@ -27,7 +27,7 @@
 .artist .overlay_color {
    /* background: linear-gradient(45deg, rgba(0, 12, 255, .25), rgba(145, 0, 255, .25)); */
    /* background: linear-gradient(45deg, rgba(0, 0, 0, .15), rgba(0, 0, 0, .15)); */
-   background: linear-gradient(45deg, rgba(0, 12, 255, .75), rgba(145, 0, 255, .75));
+   background: linear-gradient(45deg, rgba(0, 12, 255, .50), rgba(145, 0, 255, .50));
    bottom:0;
    left:0;
    position:absolute;
@@ -45,7 +45,7 @@
    opacity: 1
 }
 .select_artist_header {
-   font-family: sans-serif;
+   font-family: 'Roboto', sans-serif;
    font-size: 24px;
    font-weight: bold;
 }
@@ -80,9 +80,22 @@
 }
 .artist_name {
    color: white;
-   font-family: sans-serif;
+   font-family: 'Roboto', sans-serif;
    font-weight: bold;
    font-size: 32px;
+   letter-spacing: 0.8px;
    position: relative;
    z-index: 2;
+}
+
+.category_container {
+   background: black;
+   color: white;
+   display: inline-block;
+   height: 40px;
+   width: 80px;
+}
+
+.category_container.active {
+   background: linear-gradient(45deg, rgba(0, 12, 255, 1), rgba(145, 0, 255, 1));
 }

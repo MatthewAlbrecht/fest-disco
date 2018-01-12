@@ -31,7 +31,7 @@ class Festivals extends Component {
             {this.state.festivals.map((festival, i) => {
                return (
                   <div key={i}>
-                     <Link to={{pathname: '/festivals/'+festival.name+'_'+festival.year}}>{festival.name}</Link>
+                     <Link to={{pathname: '/festivals/'+festival._id}}>{festival.name}</Link>
                   </div>
                )
             })}
