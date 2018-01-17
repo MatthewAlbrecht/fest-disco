@@ -15,14 +15,15 @@ class App extends Component {
 
    componentDidMount() {
       this.props.location.parsedSearch = queryString.parse(this.props.location.search)
-      console.log("this.props ===> ", this.props)
+      // console.log("this.props ===> ", this.props)
       this.requestAccessAndRefresh(this.props.location.parsedSearch)
       // console.log("parsed ===> ", parsed)
    }
    requestAccessAndRefresh(search) {
-      console.log("======> WE ARE IN requestAccessAndRefresh FE")
+      // console.log("======> WE ARE IN requestAccessAndRefresh FE")
       let code = { code: search.code || null}
-      console.log("code ===> ", code)
+      // console.log("code ===> ", code)
+      console.log("process.env.REACT_APP_API_URL ===> ", process.env.REACT_APP_API_URL)
       fetch(process.env.REACT_APP_API_URL + '/login/accessAndRefresh', {
          method: 'POST',
          body: JSON.stringify(code),
@@ -32,8 +33,8 @@ class App extends Component {
       })
       .then(res => res.json())
       .then(response => {
-         console.log("response ===> ", response)
-         console.log("response.data ===> ", response.data)
+         // console.log("response ===> ", response)
+         // console.log("response.data ===> ", response.data)
          cookies.set('user', JSON.stringify(response.data))
          this.setState({ cookiesSet: true })
       })
