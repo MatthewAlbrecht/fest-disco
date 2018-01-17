@@ -6,14 +6,15 @@ class App extends Component {
    constructor(props){
      super(props);
      this.state = {
-        loginURI: 'https://accounts.spotify.com/authorize?client_id=cdbad3fca6e246fc844cf598440f2b93&response_type=code&redirect_uri=http://localhost:3000/cb&scope=user-read-private%20user-read-email%20playlist-modify-private%20playlist-modify-public'
+        loginURI: `https://accounts.spotify.com/authorize?client_id=cdbad3fca6e246fc844cf598440f2b93&response_type=code&redirect_uri=${process.env.REACT_APP_UI_URL}/cb&scope=user-read-private%20user-read-email%20playlist-modify-private%20playlist-modify-public`
      }
 
      this.handleLoginClick = this.handleLoginClick.bind(this)
    }
 
    handleLoginClick() {
-      window.location = this.state.loginURI
+      console.log("this.state.loginURI ===> ", this.state.loginURI)
+      // window.location = this.state.loginURI
    }
   render() {
     return (
