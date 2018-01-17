@@ -14,7 +14,7 @@ class App extends Component {
 
    handleLoginClick() {
       console.log("this.state.loginURI ===> ", this.state.loginURI)
-      // window.location = this.state.loginURI
+      window.location = this.state.loginURI
    }
   render() {
     return (
