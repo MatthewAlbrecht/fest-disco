@@ -23,7 +23,7 @@ class App extends Component {
       console.log("======> WE ARE IN requestAccessAndRefresh FE")
       let code = { code: search.code || null}
       console.log("code ===> ", code)
-      fetch('http://localhost:5000/api/v1/login/accessAndRefresh', {
+      fetch(process.env.REACT_APP_API_URL + '/login/accessAndRefresh', {
          method: 'POST',
          body: JSON.stringify(code),
          headers: {

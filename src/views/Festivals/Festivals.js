@@ -12,7 +12,7 @@ class Festivals extends Component {
    }
    componentDidMount() {
       console.log("this.state.user ===> ", this.props.user)
-      fetch('http://localhost:5000/api/v1/festivals')
+      fetch(process.env.REACT_APP_API_URL + '/festivals')
          .then(res => res.json())
          .then(festivals => {
             // console.log("festivals ===> ", festivals)

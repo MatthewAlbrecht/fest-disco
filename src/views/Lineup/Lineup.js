@@ -34,7 +34,7 @@ class Lineup extends Component {
             this.countActiveArtists()
          })
       } else {
-         fetch(`http://localhost:5000/api/v1/festivalgroupings/${id}`)
+         fetch(process.env.REACT_APP_API_URL + `/festivalgroupings/${id}`)
             .then(res => res.json())
             .then(response => {
                if (response.success) {
