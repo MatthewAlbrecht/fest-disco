@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './lineup.css'
 import genericCrowdImage from '../../img/crowd.jpeg'
 
 class Lineup extends Component {
    constructor(props){
      super(props);
+     let name = this.props.location.state ? this.props.location.state.name : ""
+     let year = this.props.location.state ? this.props.location.state.year : ""
      this.state = {
         festival: [],
         noFestivalExists: false,
-        activeGroup: ""
+        activeGroup: "",
+        activeArtists: 0,
+        name: name || "",
+        year: year || ""
      }
 
      this.renderLineup = this.renderLineup.bind(this)
@@ -17,35 +23,54 @@ class Lineup extends Component {
      this.setLocalStorage = this.setLocalStorage.bind(this)
      this.localStorageToState = this.localStorageToState.bind(this)
      this.handleCategoryClick = this.handleCategoryClick.bind(this)
+     this.countActiveArtists = this.countActiveArtists.bind(this)
   }
 
-   componentDidMount() {
+   async componentDidMount() {
       let id = this.props.location.pathname.split("/")[2]
-      let stateSet = this.localStorageToState(id)
-      console.log("this.state ===> ", this.state)
+      let { stateSet, festival } =  await this.localStorageToState(id)
       if (stateSet) {
+         this.setState({ festival, activeGroup: festival[0].name }, () => {
+            this.countActiveArtists()
+         })
+      } else {
          fetch(`http://localhost:5000/api/v1/festivalgroupings/${id}`)
-         .then(res => res.json())
-         .then(response => {
-            if (response.success) {
-               this.setState({ festival: response.data, activeGroup: response.data[0].name })
-            } else {
-               this.setState({ noFestivalExists: true })
+            .then(res => res.json())
+            .then(response => {
+               if (response.success) {
+                  this.setState({ festival: response.data, activeGroup: response.data[0].name }, () => {
+                     this.countActiveArtists()
+                  })
+               } else {
+                  this.setState({ noFestivalExists: true })
+               }
+            })
+      }
+   }
+   countActiveArtists() {
+      let count = 0
+      this.state.festival.forEach((group, i) => {
+         // console.log("group ===> ", group)
+         group.artists.forEach((artist, j) => {
+            if (artist.active) {
+               count++
             }
          })
-      }
+      })
+      this.setState({ activeArtists: count })
    }
 
    handleArtistClick(artistName) {
       // console.log("artistName ===> ", artistName)
       // console.log("this.state.festival.artists ===> ", this.state.festival.artists)
       let festival = Object.assign([], this.state.festival)
-      console.log("festival ===> ", festival)
+      // console.log("festival ===> ", festival)
       for (let group of festival) {
          if (group.name === this.state.activeGroup) {
             group.artists.forEach((artist, i) => {
                if (artist.name === artistName) {
                   artist.active = !artist.active
+                  this.countActiveArtists()
                   // console.log("artist.name, artistName ===> ", artist.active, artistName)
                }
             })
@@ -58,61 +83,47 @@ class Lineup extends Component {
 
    localStorageToState(id) {
       let stateSet = false
-      let festivals = localStorage.getItem('festivals');
-      // console.log("festivals ===> ", festivals)
-      if (festivals) {
-         festivals = JSON.parse(festivals)
-         festivals.forEach((festival, i) => {
-            if (festival && festival[0] && festival[0].festivalId === id) {
-               this.setState({ festival: festival, activeGroup: festival[0].name }, () => {
-                  // console.log("this.state ===> ", this.state)
-                  stateSet = true
-               })
-            }
-         })
+      let festival = localStorage.getItem(id);
+      festival = JSON.parse(festival)
+      if (festival) {
+         stateSet = true
       }
-      return stateSet
+      return {stateSet, festival}
    }
 
    setLocalStorage() {
       let id = this.props.location.pathname.split("/")[2]
-      // console.log("this.state ===> ", this.state.festival)
-      let festivals = localStorage.getItem("festivals")
-      festivals = JSON.parse(festivals)
-      if (festivals) {
-         let festHit = false
-         for (let festival of festivals) {
-            if (festival[0] && festival[0].festivalId === id) {
-               festival.forEach((group, i) => {
-                  // console.log("group.artists ===> ", group.artists)
-                  // console.log("group state ", this.state.festival[i].artists)
-                  group.artists = this.state.festival[i].artists
-               })
-                  festHit = true
-                  break;
-            }
-         }
-         if (!festHit) {
-            festivals.push(this.state.festival)
-         }
-         console.log("festivals ===> ", festivals)
-         localStorage.setItem("festivals", JSON.stringify(festivals))
-      } else {
-         localStorage.setItem("festivals", JSON.stringify([this.state.festival]))
-      }
-
+      localStorage.setItem(id, JSON.stringify(this.state.festival))
    }
+
    handleCategoryClick(groupName) {
       this.setState({ activeGroup: groupName })
    }
+
+   handleCatNameCreation(groupName) {
+      let groupNameArray = []
+      groupName = groupName.split('/')
+      groupName.forEach((name, i) => {
+         let nameElement = (
+            <span key={i} className="category_name">{name}</span>
+         )
+         groupNameArray.push(nameElement)
+      })
+      return groupNameArray
+   }
+
    renderCategories() {
-      console.log("this.state.festival ===> ", this.state.festival)
+      // console.log("this.state.festival ===> ", this.state.festival)
       let categories = []
       if (this.state.festival.length) {
          this.state.festival.forEach((group, i) => {
+            let groupNames = this.handleCatNameCreation(group.name)
+            // console.log("groupNames ===> ", groupNames)
             let category = (
-               <div key={i} onClick={() => {this.handleCategoryClick(group.name)}} className={"category_container" + (group.name === this.state.activeGroup ? " active" : "")}>
-                  {group.name}
+               <div key={i} onClick={() => {this.handleCategoryClick(group.name)}} className={"category_item_container" + (group.name === this.state.activeGroup ? " active" : "")}>
+                  <div className="category_name_container">
+                     {groupNames}
+                  </div>
                </div>
             )
             categories.push(category)
@@ -153,7 +164,7 @@ class Lineup extends Component {
                         <div className="overlay"></div>
                         <div className="overlay_color"></div>
                         <div className="add_artist_container">
-                           <span className="plus">+</span>
+                           <span className="plus">{artist.active ? "–" : "+"}</span>
                         </div>
                      </div>
                   )
@@ -177,8 +188,19 @@ class Lineup extends Component {
       return(
          <div>
             <h1 className="select_artist_header">Select Artists</h1>
-            {this.renderCategories()}
-            {this.renderLineup()}
+            <div className="category_container">
+               {this.renderCategories()}
+            </div>
+            <div className="lineup_container">
+               {this.renderLineup()}
+            </div>
+            <div className="footer_ctas_spacer">
+
+            </div>
+            <div className="footer_ctas">
+               <div className="selected_artists">Selected Artists: {this.state.activeArtists || 0}</div>
+               <Link to={{pathname: this.props.location.pathname + "/create", state: this.state}} className="create_playlists">Create Playlists</Link>
+            </div>
          </div>
       );
 

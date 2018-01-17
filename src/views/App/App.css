@@ -1,0 +1,56 @@
+.App {
+   background: linear-gradient(0deg, rgba(0, 12, 255, 1), rgba(145, 0, 255, 1));
+   min-height: 100vh;
+   padding: 16px;
+   width: 100%;
+   /* align-items: center; */
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+}
+
+.logo {
+   overflow: hidden;
+   text-indent: -10000px;
+   background: url('../../img/viibly_logo.svg');
+   background-size: contain;
+   background-repeat: no-repeat;
+   height: 124px;
+   width: 292px;
+}
+
+.login {
+   background: #FFF;
+   border-radius: 28px;
+   cursor: pointer;
+   color: blue;
+   font-size: 15px;
+   font-weight: bold;
+   height: 56px;
+   letter-spacing: 1.5px;
+   line-height: 56px;
+   margin: 40px 0 0;
+   position: relative;
+   text-align: center;
+   text-transform: uppercase;
+   width: 240px;
+}
+
+.login_text {
+   padding-left: 24px;
+}
+
+.login .fa-spotify {
+   font-size: 24px;
+   /* padding: 0 8px 0; */
+   position: absolute;
+   top: 16px;
+   left: 24px;
+}
+
+.splash_blurb {
+   color: #FFF;
+   font-size: 18px;
+   line-height: 1.5;
+   margin: 16px 0 0;
+}

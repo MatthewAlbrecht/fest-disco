@@ -24,6 +24,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
+	font-family: 'Roboto', sans-serif;
 	line-height: 1;
 }
 ol, ul {
@@ -43,5 +44,12 @@ table {
 }
 * {
 	box-sizing: border-box;
-	
+
+}
+
+a, u {
+    text-decoration: none;
+}
+.no_wrap {
+	white-space: nowrap;
 }

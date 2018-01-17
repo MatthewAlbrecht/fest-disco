@@ -1,0 +1,79 @@
+.festival {
+   background-position: center 50%;
+   background-repeat: no-repeat;
+   background-size: cover;
+   display: block;
+   height: 152px;
+   padding: 16px;
+   position: relative;
+   width: 100%;
+}
+
+.festival:nth-child(1) {
+   margin: 2px 0 0 0;
+}
+
+.festival + .festival {
+   margin: 2px 0 0 0;
+}
+.festival .overlay {
+   /* background: linear-gradient(45deg, rgba(0, 12, 255, .25), rgba(145, 0, 255, .25)); */
+   background: linear-gradient(45deg, rgba(0, 0, 0, .44), rgba(0, 0, 0, .44));
+   bottom:0;
+   left:0;
+   position:absolute;
+   right:0;
+   top:0;
+   z-index:1;
+
+   opacity: 1;
+   transition: opacity .3s ease-in-out;
+}
+.festival .overlay_color {
+   /* background: linear-gradient(45deg, rgba(0, 12, 255, .25), rgba(145, 0, 255, .25)); */
+   /* background: linear-gradient(45deg, rgba(0, 0, 0, .15), rgba(0, 0, 0, .15)); */
+   background: linear-gradient(45deg, rgba(0, 12, 255, .50), rgba(145, 0, 255, .50));
+   bottom:0;
+   left:0;
+   position:absolute;
+   right:0;
+   top:0;
+   z-index:1;
+
+   opacity: 0;
+   transition: opacity .3s ease-in-out;
+}
+.festival.active .overlay {
+   opacity: 0
+}
+.festival.active .overlay_color {
+   opacity: 1
+}
+
+.festival_name {
+   color: white;
+   font-weight: bold;
+   font-size: 32px;
+   letter-spacing: 0.8px;
+   position: relative;
+   z-index: 2;
+}
+
+.festival_year {
+   color: white;
+   /* font-weight: bold; */
+   /* font-size: 32px; */
+   letter-spacing: 0.8px;
+   position: absolute;
+   bottom: 16px;
+   left: 16px;
+   z-index: 2;
+}
+
+.select_festival_header {
+   border-bottom: 2px solid rgba(0,0,0, .20);
+   font-size: 32px;
+   font-weight: bold;
+   margin: 24px 16px 24px;
+   padding: 0 0 16px 0;
+}

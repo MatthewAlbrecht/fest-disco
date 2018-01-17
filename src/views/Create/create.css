@@ -1,0 +1,81 @@
+.your_playlist_header {
+   border-bottom: 2px solid rgba(255,255,255, .20);
+   color: white;
+   font-family: 'Roboto', sans-serif;
+   font-size: 32px;
+   font-weight: bold;
+   margin: 0 16px 24px;
+   padding: 24px 0 16px 0;
+}
+.create_bg {
+   background: linear-gradient(0deg, rgba(0, 12, 255, 1), rgba(145, 0, 255, 1));
+   min-height: 100vh;
+   width: 100%;
+}
+
+.create_box {
+   border-radius: 8px;
+   height: 240px;
+   margin: 0 auto;
+   padding: 16px;
+   position: relative;
+   width: 240px;
+}
+
+.create_box + .create_box {
+   margin-top: 48px;
+}
+
+.create_box.createLike {
+   background: #01FDE1;
+}
+
+.create_box.createDiscover {
+   background: #000;
+}
+
+.create_button {
+   background: white;
+   border-radius: 24px;
+   bottom: -24px;
+   color: #0000FF;
+   cursor: pointer;
+   font-size: 15px;
+   font-weight: bold;
+   height: 48px;
+   left: 20px;
+   letter-spacing: 1.5px;
+   line-height: 48px;
+   position: absolute;
+   text-align: center;
+   text-transform: uppercase;
+   width: 200px;
+}
+
+.create_header {
+   font-size: 43px;
+   font-weight: bold;
+}
+
+.createLike {
+   color: #0000FF;
+}
+.createDiscover {
+   color: #FFF;
+}
+
+.create_blurb {
+   margin: 8px 0 0;
+   line-height: 1.5;
+}
+
+.create_feature {
+   margin-top: 16px;
+   font-size: 12px;
+}
+
+.create_artist {
+   margin-top: 8px;
+   font-weight: bold;
+   letter-spacing: 0.8px;
+}

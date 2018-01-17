@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router'
-import logo from './logo.svg';
 import queryString from 'query-string';
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
@@ -51,13 +50,7 @@ class App extends Component {
      }
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to FestDisco</h1>
-        </header>
-        <p className="App-intro">
-           This is the Callback
-        </p>
+
       </div>
     );
   }
