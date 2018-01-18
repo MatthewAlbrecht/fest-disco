@@ -11,7 +11,10 @@ class App extends Component {
 
      this.handleLoginClick = this.handleLoginClick.bind(this)
    }
-
+   componentWillMount() {
+      console.log("process.env.REACT_APP_UI_URL ===> ", process.env.REACT_APP_UI_URL)
+      console.log("process.env.REACT_APP_API_URL ===> ", process.env.REACT_APP_API_URL)
+   }
    handleLoginClick() {
       console.log("this.state.loginURI ===> ", this.state.loginURI)
       window.location = this.state.loginURI
